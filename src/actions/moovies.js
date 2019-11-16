@@ -37,19 +37,34 @@ export const getMoovie = moovieId => dispatch => {
     return axios
         .get(`/moovies/${moovieId}`)
         .then(res => {
-            return new Promise((resolve) => {
-                dispatch({
-                    type: SET_MOOVIE_INFO,
-                    payload: res.data,
-                });
-                resolve();
+            dispatch({
+                type: SET_MOOVIE_INFO,
+                payload: res.data,
             });
-
         })
         .catch(err => {
             console.log("err in getTasks " + err);
         });
 }
+
+export const getSortedMoovies = () => dispatch => {
+    return axios
+        .get("/moovies/sorted")
+        .then(res => {
+            return new Promise((resolve) => {
+                console.log(res.data)
+                dispatch({
+                    type: SET_MOOVIES,
+                    payload: res.data,
+                });
+                resolve();
+            })
+        })
+        .catch(err => {
+            console.log("err in getTasks " + err);
+        });
+};
+
 export const updateMoovies = dispatch => {
     return getMoovies().then(moovies => {
         dispatch(setMoovies(moovies));

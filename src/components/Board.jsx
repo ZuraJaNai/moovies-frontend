@@ -5,13 +5,8 @@ import { deleteMoovie, getMoovie } from "../actions/moovies";
 import Moovie from "./Moovie";
 
 class Board extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     viewMoovieInfo = (moovieId) => {
-        this.props.getMoovie(moovieId)
-            .then(this.props.history.push("/info"));
+        this.props.history.push(`/info/${moovieId}`);
     }
 
     deleteMoovie = (moovieId) => {

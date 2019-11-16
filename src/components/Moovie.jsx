@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 
-const Board = ({ moovie, deleteMoovie, viewMoovieInfo }) => {
+const Moovie = ({ moovie, deleteMoovie, viewMoovieInfo }) => {
     return (
         <Card style={{ width: '18rem' }}>
             <Card.Body>
@@ -20,7 +20,7 @@ const Board = ({ moovie, deleteMoovie, viewMoovieInfo }) => {
     );
 }
 
-Board.propTypes = {
+Moovie.propTypes = {
     moovie: PropTypes.objectOf(PropTypes.shape({
         "_id": PropTypes.string.isRequired,
         "Title": PropTypes.string.isRequired,
@@ -33,4 +33,4 @@ Board.propTypes = {
 };
 
 
-export default Board;
+export default Moovie;

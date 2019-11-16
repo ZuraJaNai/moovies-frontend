@@ -2,10 +2,11 @@ import React from 'react';
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import store from "./store";
+import { initializeMoovies } from "./actions/moovies";
 import Navigation from "./components/Navigation";
 import PageNotFound from "./components/PageNotFound";
 import Board from "./components/Board";
-import { initializeMoovies } from "./actions/moovies";
+import MoovieInfo from './components/MoovieInfo';
 
 store.dispatch(initializeMoovies());
 
@@ -17,6 +18,7 @@ function App() {
           <Navigation />
           <Switch>
             <Route exact path="/" component={Board} />
+            <Route exact path="/info/:id" component={MoovieInfo} />
             <Route path="/*" component={PageNotFound} />
           </Switch>
         </div>
