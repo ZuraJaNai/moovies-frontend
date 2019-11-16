@@ -34,13 +34,17 @@ export const deleteMoovie = moovieId => dispatch => {
 };
 
 export const getMoovie = moovieId => dispatch => {
-    axios
+    return axios
         .get(`/moovies/${moovieId}`)
         .then(res => {
-            dispatch({
-                type: SET_MOOVIE_INFO,
-                payload: res.data,
+            return new Promise((resolve) => {
+                dispatch({
+                    type: SET_MOOVIE_INFO,
+                    payload: res.data,
+                });
+                resolve();
             });
+
         })
         .catch(err => {
             console.log("err in getTasks " + err);

@@ -1,6 +1,6 @@
 import { SET_MOOVIES, ADD_MOOVIE, DEL_MOOVIE, SET_MOOVIE_INFO } from "../actions/types";
 const initialState = {
-  moovies: [],
+  list: [],
   moovieInfo: null,
 };
 export default function (state = initialState, action) {
@@ -8,19 +8,19 @@ export default function (state = initialState, action) {
     case SET_MOOVIES:
       return {
         ...state,
-        moovies: action.payload,
+        list: action.payload,
       };
     case ADD_MOOVIE:
       return {
         ...state,
-        moovies: [action.payload, ...state.moovies],
+        list: [action.payload, ...state.list],
       };
     case DEL_MOOVIE:
-      const index = state.moovies.findIndex(moovie => moovie["_id"] = action.payload);
+      const index = state.list.findIndex(moovie => moovie["_id"] = action.payload);
       return {
         ...state,
-        moovies: [...state.moovies.slice(0, index),
-        ...state.moovies.slice(index + 1)],
+        list: [...state.list.slice(0, index),
+        ...state.list.slice(index + 1)],
       };
     case SET_MOOVIE_INFO:
       return {
