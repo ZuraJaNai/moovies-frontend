@@ -1,5 +1,4 @@
-import { SET_MOOVIES, DEL_MOOVIE } from "../actions/types";
-import { stat } from "fs";
+import { SET_MOOVIES, ADD_MOOVIE, DEL_MOOVIE, SET_MOOVIE_INFO } from "../actions/types";
 const initialState = {
   moovies: [],
   moovieInfo: null,
