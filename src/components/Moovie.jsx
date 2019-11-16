@@ -7,6 +7,7 @@ const Board = ({ moovie, deleteMoovie, viewMoovieInfo }) => {
     return (
         <Card style={{ width: '18rem' }}>
             <Card.Body>
+                <p onClick={() => { deleteMoovie(moovie["_id"]) }}>X</p>
                 <Card.Title>{moovie["Title"]}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{moovie["Release Year"]}</Card.Subtitle>
                 <Card.Text>

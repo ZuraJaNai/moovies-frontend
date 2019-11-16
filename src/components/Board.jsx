@@ -15,7 +15,7 @@ class Board extends Component {
     }
 
     deleteMoovie = (moovieId) => {
-
+        this.props.deleteMoovie(moovieId);
     }
 
     render() {
