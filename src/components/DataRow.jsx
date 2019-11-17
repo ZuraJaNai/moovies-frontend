@@ -13,7 +13,7 @@ const DataRow = ({ header, value }) => {
 
 DataRow.propTypes = {
     header: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 };
 
 

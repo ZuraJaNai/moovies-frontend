@@ -2,14 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteMoovie, getMoovie } from "../actions/moovies";
-import { Container, Row } from "react-bootstrap";
-import DataRow from "./DataRow";
+import MoovieData from "./MoovieData";
 
 class MoovieInfo extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const { match: { params: { id } } } = this.props;
         this.props.getMoovie(id);
@@ -17,20 +12,14 @@ class MoovieInfo extends Component {
 
     render() {
         const { info } = this.props;
-        const [title, year, format, stars, description] = ["Title", "Release Year", "Format", "Stars", "Full description"]
+        const [title, year, format, stars] = ["Title", "Release Year", "Format", "Stars"];
         return (
             <div>
                 {info != null &&
-                    <Container className="justify-content-md-around justify-content-sm-center">
-                        <DataRow header={title} value={info[title]} />
-                        <DataRow header={year} value={info[year]} />
-                        <DataRow header={format} value={info[format]} />
-                        <DataRow header={stars} value={info[stars]} />
-
-                        <Row className="justify-content-center">
-                            {description}
-                        </Row>
-                    </Container>
+                    <MoovieData
+                        headers={[title, year, format, stars]}
+                        values={[info[title], info[year], info[format], info[stars]]}
+                    />
                 }
             </div>
         );

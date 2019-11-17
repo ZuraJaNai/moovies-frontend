@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import PageNotFound from "./components/PageNotFound";
 import Board from "./components/Board";
 import MoovieInfo from './components/MoovieInfo';
+import MoovieAdd from './components/MoovieAdd';
 
 store.dispatch(initializeMoovies());
 
@@ -18,6 +19,7 @@ function App() {
           <Navigation />
           <Switch>
             <Route exact path="/" component={Board} />
+            <Route exact path="/add" component={MoovieAdd} />
             <Route exact path="/info/:id" component={MoovieInfo} />
             <Route path="/*" component={PageNotFound} />
           </Switch>

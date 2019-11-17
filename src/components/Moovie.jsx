@@ -20,17 +20,5 @@ const Moovie = ({ moovie, deleteMoovie, viewMoovieInfo }) => {
     );
 }
 
-Moovie.propTypes = {
-    moovie: PropTypes.objectOf(PropTypes.shape({
-        "_id": PropTypes.string.isRequired,
-        "Title": PropTypes.string.isRequired,
-        "Release Year": PropTypes.string,
-        "Format": PropTypes.string,
-        "Stars": PropTypes.string,
-    })).isRequired,
-    deleteMoovie: PropTypes.func.isRequired,
-    viewMoovieInfo: PropTypes.func.isRequired
-};
-
 
 export default Moovie;
