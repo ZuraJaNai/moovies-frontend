@@ -1,49 +1,34 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteMoovie, getMoovie } from "../actions/moovies";
-import Moovie from "./Moovie";
+import MooviesList from "./MooviesList";
 
 class Board extends Component {
-    viewMoovieInfo = (moovieId) => {
-        this.props.history.push(`/info/${moovieId}`);
-    }
-
-    deleteMoovie = (moovieId) => {
-        this.props.deleteMoovie(moovieId);
-    }
-
-    render() {
-        const list = this.props.moovies.map(moovie => {
-            return <Moovie
-                key={moovie["_id"]}
-                moovie={moovie}
-                deleteMoovie={this.deleteMoovie}
-                viewMoovieInfo={this.viewMoovieInfo}
-            />
-        })
-        return (
-            <div>
-                {list}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <MooviesList
+        moovies={this.props.moovies}
+        deleteMoovie={this.deleteMoovie}
+        viewMoovieInfo={this.viewMoovieInfo}
+      />
+    );
+  }
 }
 
 Board.propTypes = {
-    moovies: PropTypes.arrayOf(PropTypes.shape({
-        "_id": PropTypes.string.isRequired,
-        "Title": PropTypes.string.isRequired,
-        "Release Year": PropTypes.string,
-        "Format": PropTypes.string,
-        "Stars": PropTypes.string,
-    })).isRequired,
-    deleteMoovie: PropTypes.func.isRequired,
-    getMoovie: PropTypes.func.isRequired
+  moovies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+      "Release Year": PropTypes.string,
+      Format: PropTypes.string,
+      Stars: PropTypes.string
+    })
+  ).isRequired
 };
 
 const mapStateToProps = state => ({
-    moovies: state.moovies.list
+  moovies: state.moovies.list
 });
 
-export default connect(mapStateToProps, { deleteMoovie, getMoovie })(Board);
+export default connect(mapStateToProps, null)(Board);
