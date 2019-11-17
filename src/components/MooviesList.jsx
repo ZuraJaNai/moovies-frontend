@@ -1,13 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Container, Row, Col } from "react-bootstrap";
 import Moovie from "./Moovie";
 
 const MooviesList = ({ moovies }) => {
   const list = moovies.map(moovie => {
-    return <Moovie key={moovie["_id"]} moovie={moovie} />;
+    return <Col key={moovie["_id"]} className="d-flex justify-content-center"><Moovie moovie={moovie} /></Col>;
   });
 
-  return <div>{list}</div>;
+  return (
+    <Container className="fluid justify-content-around">
+      <Row>
+        {list}
+      </Row>
+    </Container>
+  );
 };
 
 MooviesList.propTypes = {

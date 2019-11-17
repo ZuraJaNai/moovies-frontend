@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 const DataRow = ({ header, value }) => {
     return (
-        <Row>
-            <Col className="m-2">{header}</Col>
-            <Col>{value}</Col>
+        <Row className="p-2 border border-dark">
+            <Col className="col-4 p-2">{header}</Col>
+            <Col className="col-8 p-2">{value}</Col>
         </Row>
     );
 }

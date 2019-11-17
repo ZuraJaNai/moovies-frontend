@@ -12,7 +12,7 @@ const MoovieData = ({ headers, values }) => {
         return rows;
     }
     return (
-        <Container className="justify-content-md-around justify-content-sm-center">
+        <Container className="mx-auto border border-dark justify-content-md-around justify-content-sm-center m-2">
             {createRows()}
         </Container>
     );

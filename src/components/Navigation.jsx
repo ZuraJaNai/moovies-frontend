@@ -23,13 +23,14 @@ class Navigation extends Component {
 
   render() {
     return (
-      <Navbar bg="light" expand="md">
+      <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">MooviesLib</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/add">Add moovie</Nav.Link>
             <Nav.Link onClick={this.getSortedMoovies}>A-Z list</Nav.Link>
+            <Nav.Link ><input type="file" /></Nav.Link>
           </Nav>
           <Form inline onSubmit={this.handleSubmit}>
             <FormControl

@@ -16,28 +16,31 @@ const Moovie = props => {
   };
 
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Body>
-        <p
-          onClick={() => {
-            deleteMoovie(props.moovie["_id"]);
-          }}
-        >
-          X
-        </p>
+    <Card className="m-2 bg-light" style={{ width: "18rem", height: "12rem" }}>
+      <Card.Body className="d-flex flex-column">
         <Card.Title>{props.moovie["Title"]}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
           {props.moovie["Release Year"]}
         </Card.Subtitle>
 
-        <Button
-          variant="info"
-          onClick={() => {
-            viewMoovieInfo(props.moovie["_id"]);
-          }}
-        >
-          Info
+        <div className="mt-auto d-flex justify-content-around">
+          <Button
+            variant="info"
+            onClick={() => {
+              viewMoovieInfo(props.moovie["_id"]);
+            }}
+          >
+            Info
         </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              deleteMoovie(props.moovie["_id"]);
+            }}
+          >
+            Delete
+        </Button>
+        </div>
       </Card.Body>
     </Card>
   );
