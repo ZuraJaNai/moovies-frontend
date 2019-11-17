@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Navbar, Nav, FormControl, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getSortedMoovies, updateMoovies } from "../actions/moovieActions";
+import { getSortedMoovies, refreshMoovies } from "../actions/moovieActions";
 import { findMooviesByStar, findMooviesByTitle } from "../actions/searchActions";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ class Navigation extends Component {
     const data = new FormData();
     data.append('file', file);
     axios.post("/import", data)
-      .then(this.props.updateMoovies())
+      .then(this.props.refreshMoovies())
       .catch(err => console.log(err))
   };
 
@@ -77,7 +77,7 @@ Navigation.propTypes = {
 
 export default connect(null, {
   getSortedMoovies,
-  updateMoovies,
+  refreshMoovies,
   findMooviesByStar,
   findMooviesByTitle
 })(withRouter(Navigation));

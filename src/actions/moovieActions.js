@@ -64,7 +64,11 @@ export const getSortedMoovies = () => dispatch => {
     });
 };
 
-export const updateMoovies = () => dispatch => {
+export const refreshMoovies = () => dispatch => {
+  return updateMoovies(dispatch);
+}
+
+const updateMoovies = dispatch => {
   return getMoovies().then(moovies => {
     dispatch({
       type: SET_MOOVIES,
@@ -82,11 +86,4 @@ const getMoovies = () => {
     .catch(err => {
       console.log("err in getMoovies " + err);
     });
-};
-
-const setMoovies = moovies => {
-  return {
-    type: SET_MOOVIES,
-    payload: moovies
-  };
 };
