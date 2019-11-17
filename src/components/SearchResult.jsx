@@ -10,22 +10,28 @@ import Tab from "react-bootstrap/Tab";
 import MooviesList from "./MooviesList"
 
 class SearchResult extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props)
+  }
   componentDidMount() {
-    const {
-      location: {
-        search
+    if (this.props.byTitle && this.props.byStar) {
+      const {
+        location: {
+          search
+        }
+      } = this.props;
+      try {
+        const value = decodeURI(search.split("=")[1])
+        Promise.all([
+          this.props.findMooviesByTitle(value),
+          this.props.findMooviesByStar(value)
+        ])
+          .catch(err => console.log(err))
+      } catch (e) { // catches a malformed URI
+        console.error(e);
+        this.props.history.push("/");
       }
-    } = this.props;
-    try {
-      const value = decodeURI(search.split("=")[1])
-      Promise.all([
-        this.props.findMooviesByTitle(value),
-        this.props.findMooviesByStar(value)
-      ])
-        .catch(err => console.log(err))
-    } catch (e) { // catches a malformed URI
-      console.error(e);
-      this.props.history.push("/");
     }
   }
   render() {
@@ -33,10 +39,12 @@ class SearchResult extends React.Component {
     return (
       <Tabs defaultActiveKey="title" transition={false} id="search-tab">
         <Tab eventKey="title" title="Search results by moovie title">
-          {byTitle.length > 0 ? <MooviesList moovies={byTitle} /> : <h2>No results</h2>}
+          {byTitle.length > 0 ?
+            <MooviesList moovies={byTitle} /> : <h2 className="m-2 text-center">No results</h2>}
         </Tab>
         <Tab eventKey="stars" title="Search results by star name">
-          {byStar.length > 0 ? <MooviesList moovies={byStar} /> : <h2>No results</h2>}
+          {byStar.length > 0 ?
+            <MooviesList moovies={byStar} /> : <h2 className="m-2 text-center">No results</h2>}
         </Tab>
       </Tabs>
     );

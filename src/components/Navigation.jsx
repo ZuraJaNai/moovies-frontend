@@ -5,6 +5,11 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getSortedMoovies } from "../actions/moovieActions";
 
+import {
+  findMooviesByStar,
+  findMooviesByTitle
+} from "../actions/searchActions";
+
 class Navigation extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +18,15 @@ class Navigation extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const value = encodeURI(this.searchInput.current.value);
-    this.props.history.push(`/search?q=${value}`)
+    const value = this.searchInput.current.value;
+    Promise.all([
+      this.props.findMooviesByTitle(value),
+      this.props.findMooviesByStar(value)
+    ])
+      .then(() => {
+        this.props.history.push(`/search?q=${encodeURI(value)}`)
+      })
+      .catch(err => console.log(err))
   };
 
   getSortedMoovies = () => {
@@ -52,5 +64,7 @@ Navigation.propTypes = {
 }
 
 export default connect(null, {
-  getSortedMoovies
+  getSortedMoovies,
+  findMooviesByStar,
+  findMooviesByTitle
 })(withRouter(Navigation));
