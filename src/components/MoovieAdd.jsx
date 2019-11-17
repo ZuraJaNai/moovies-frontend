@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addMoovie } from "../actions/moovieActions";
 import { Form, Button } from "react-bootstrap";
@@ -14,7 +15,7 @@ class MoovieAdd extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.stopPropagation();
     const moovieData = {
       "Title": this.titleInput.current.value,
       "Release Year": this.yearInput.current.value,
@@ -45,6 +46,10 @@ class MoovieAdd extends Component {
       </Form>
     );
   }
+}
+
+MoovieAdd.propTypes = {
+  addMoovie: PropTypes.func.isRequired
 }
 
 export default connect(null, { addMoovie })(MoovieAdd);

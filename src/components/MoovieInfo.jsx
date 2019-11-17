@@ -36,15 +36,7 @@ class MoovieInfo extends Component {
 }
 
 MoovieInfo.propTypes = {
-  info: PropTypes.objectOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      Title: PropTypes.string.isRequired,
-      "Release Year": PropTypes.string,
-      Format: PropTypes.string,
-      Stars: PropTypes.string
-    })
-  ),
+  info: PropTypes.object,
   deleteMoovie: PropTypes.func.isRequired,
   getMoovie: PropTypes.func.isRequired
 };

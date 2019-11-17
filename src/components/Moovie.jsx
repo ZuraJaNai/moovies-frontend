@@ -43,4 +43,9 @@ const Moovie = props => {
   );
 };
 
+Moovie.propTypes = {
+  moovie: PropTypes.object.isRequired
+
+};
+
 export default connect(null, { deleteMoovie, getMoovie })(withRouter(Moovie));

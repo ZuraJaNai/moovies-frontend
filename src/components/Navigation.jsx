@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Navbar, Nav, FormControl, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -17,9 +18,9 @@ class Navigation extends Component {
   };
 
   getSortedMoovies = () => {
-    console.log(this.props);
     this.props.getSortedMoovies().then(this.props.history.push("/"));
   };
+
   render() {
     return (
       <Navbar bg="light" expand="md">
@@ -43,6 +44,10 @@ class Navigation extends Component {
       </Navbar>
     );
   }
+}
+
+Navigation.propTypes = {
+  getSortedMoovies: PropTypes.func.isRequired
 }
 
 export default connect(null, {

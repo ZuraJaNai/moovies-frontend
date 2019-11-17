@@ -10,4 +10,17 @@ const MooviesList = ({ moovies }) => {
   return <div>{list}</div>;
 };
 
+MooviesList.propTypes = {
+  moovies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+      "Release Year": PropTypes.string,
+      Format: PropTypes.string,
+      Stars: PropTypes.string
+    })
+  ).isRequired
+};
+
+
 export default MooviesList;

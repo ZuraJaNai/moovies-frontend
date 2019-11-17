@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   findMooviesByStar,
@@ -32,14 +33,37 @@ class SearchResult extends React.Component {
     return (
       <Tabs defaultActiveKey="title" transition={false} id="search-tab">
         <Tab eventKey="title" title="Search results by moovie title">
-          <MooviesList moovies={byTitle} />
+          {byTitle.length > 0 ? <MooviesList moovies={byTitle} /> : <h2>No results</h2>}
         </Tab>
         <Tab eventKey="stars" title="Search results by star name">
-          <MooviesList moovies={byStar} />
+          {byStar.length > 0 ? <MooviesList moovies={byStar} /> : <h2>No results</h2>}
         </Tab>
       </Tabs>
     );
   }
+};
+
+SearchResult.propTypes = {
+  byTitle: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+      "Release Year": PropTypes.string,
+      Format: PropTypes.string,
+      Stars: PropTypes.string
+    })
+  ).isRequired,
+  byStar: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+      "Release Year": PropTypes.string,
+      Format: PropTypes.string,
+      Stars: PropTypes.string
+    })
+  ).isRequired,
+  findMooviesByStar: PropTypes.func.isRequired,
+  findMooviesByTitle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
