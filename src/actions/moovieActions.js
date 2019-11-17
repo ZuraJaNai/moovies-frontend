@@ -43,7 +43,7 @@ export const getMoovie = moovieId => dispatch => {
       });
     })
     .catch(err => {
-      console.log("err in getTasks " + err);
+      console.log("err in getMoovie " + err);
     });
 };
 
@@ -60,13 +60,16 @@ export const getSortedMoovies = () => dispatch => {
       });
     })
     .catch(err => {
-      console.log("err in getTasks " + err);
+      console.log("err in getSortedMoovies " + err);
     });
 };
 
-export const updateMoovies = dispatch => {
+export const updateMoovies = () => dispatch => {
   return getMoovies().then(moovies => {
-    dispatch(setMoovies(moovies));
+    dispatch({
+      type: SET_MOOVIES,
+      payload: moovies
+    });
   });
 };
 
@@ -77,7 +80,7 @@ const getMoovies = () => {
       return res.data;
     })
     .catch(err => {
-      console.log("err in getTasks " + err);
+      console.log("err in getMoovies " + err);
     });
 };
 

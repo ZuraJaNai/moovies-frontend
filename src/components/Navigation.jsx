@@ -3,18 +3,25 @@ import PropTypes from "prop-types";
 import { Navbar, Nav, FormControl, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getSortedMoovies } from "../actions/moovieActions";
-
-import {
-  findMooviesByStar,
-  findMooviesByTitle
-} from "../actions/searchActions";
+import { getSortedMoovies, updateMoovies } from "../actions/moovieActions";
+import { findMooviesByStar, findMooviesByTitle } from "../actions/searchActions";
+import axios from "axios";
 
 class Navigation extends Component {
   constructor(props) {
     super(props);
     this.searchInput = React.createRef();
+    this.fileInput = React.createRef();
   }
+
+  handleUpload = (e) => {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append('file', file);
+    axios.post("/import", data)
+      .then(this.props.updateMoovies())
+      .catch(err => console.log(err))
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +49,12 @@ class Navigation extends Component {
           <Nav className="mr-auto">
             <Nav.Link href="/add">Add moovie</Nav.Link>
             <Nav.Link onClick={this.getSortedMoovies}>A-Z list</Nav.Link>
-            <Nav.Link ><input type="file" /></Nav.Link>
+            <input
+              type="file"
+              id="targetFile"
+              ref={this.fileInput}
+              onChange={this.handleUpload}
+            />
           </Nav>
           <Form inline onSubmit={this.handleSubmit}>
             <FormControl
@@ -65,6 +77,7 @@ Navigation.propTypes = {
 
 export default connect(null, {
   getSortedMoovies,
+  updateMoovies,
   findMooviesByStar,
   findMooviesByTitle
 })(withRouter(Navigation));
