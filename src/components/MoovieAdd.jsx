@@ -40,9 +40,11 @@ class MoovieAdd extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <MoovieData headers={headers} values={values} />
-        <Button variant="primary" type="submit">
-          Save
+        <div className="container d-flex justify-content-center">
+          <Button variant="primary" type="submit">
+            Save
         </Button>
+        </div>
       </Form>
     );
   }

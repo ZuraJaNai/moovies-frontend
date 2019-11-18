@@ -20,12 +20,15 @@ export const addMoovie = data => dispatch => {
 };
 
 export const deleteMoovie = moovieId => dispatch => {
-  axios
+  return axios
     .delete(`/moovies/${moovieId}`)
     .then(res => {
-      dispatch({
-        type: DEL_MOOVIE,
-        payload: res.data["_id"]
+      return new Promise(resolve => {
+        dispatch({
+          type: DEL_MOOVIE,
+          payload: res.data["_id"]
+        });
+        resolve();
       });
     })
     .catch(err => {
