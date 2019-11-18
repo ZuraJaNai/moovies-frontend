@@ -6,6 +6,7 @@ export const initializeMoovies = () => dispatch => {
 };
 
 export const addMoovie = data => dispatch => {
+  console.log(data);
   axios
     .post("/moovies", data)
     .then(res => {
