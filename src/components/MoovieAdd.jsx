@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addMoovie } from "../actions/moovieActions";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Toast } from "react-bootstrap";
 import MoovieData from "./MoovieData";
 
 class MoovieAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showToast: false,
       fields: {},
       errors: {}
     }
@@ -34,13 +35,19 @@ class MoovieAdd extends Component {
         "Format": this.formatInput.current.value,
         "Stars": this.starsInput.current.value
       };
-      this.props.addMoovie(moovieData);
-      window.location.reload();
+      this.props.addMoovie(moovieData)
+        .then((res) => {
+          if (res) {
+            window.location.reload()
+          }
+          else {
+            this.setShowToast(true)
+          }
+        });
     }
   };
 
   handleValidation = () => {
-    let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
 
@@ -64,7 +71,6 @@ class MoovieAdd extends Component {
       }
     }
 
-
     //Stars
     const stars = this.starsInput.current.value;
     if (stars) {
@@ -78,7 +84,14 @@ class MoovieAdd extends Component {
     return formIsValid;
   }
 
+  setShowToast = (value) => {
+    this.setState({
+      showToast: value
+    })
+  }
+
   render() {
+    const { showToast } = this.state;
     const headers = ["Title", "Release Year", "Format", "Stars"];
     const values = [
       <div>
@@ -100,14 +113,22 @@ class MoovieAdd extends Component {
       </div>
     ];
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <MoovieData headers={headers} values={values} />
-        <div className="container d-flex justify-content-center">
-          <Button variant="primary" type="submit">
-            Save
+      <div>
+        <Form onSubmit={this.handleSubmit}>
+          <MoovieData headers={headers} values={values} />
+          <div className="container d-flex justify-content-center">
+            <Button variant="primary" type="submit">
+              Save
         </Button>
-        </div>
-      </Form>
+          </div>
+        </Form>
+        <Toast className="fixed-bottom" show={showToast} onClose={() => this.setShowToast(false)}>
+          <Toast.Header>
+            <strong className="mr-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>This moovie already exists</Toast.Body>
+        </Toast>
+      </div>
     );
   }
 }

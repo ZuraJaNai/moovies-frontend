@@ -6,15 +6,27 @@ import { withRouter } from "react-router-dom";
 import { getSortedMoovies, refreshMoovies } from "../actions/moovieActions";
 import { findMooviesByStar, findMooviesByTitle } from "../actions/searchActions";
 import axios from "axios";
+import FileUploadModal from "./FileUploadModal"
 
 class Navigation extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      show: false
+    }
     this.searchInput = React.createRef();
-    this.fileInput = React.createRef();
+  }
+
+  setShow = (value) => {
+    this.setState({ show: value });
+  }
+
+  handleClose = () => {
+    this.setShow(false);
   }
 
   handleUpload = (e) => {
+    this.handleClose();
     const file = e.target.files[0];
     const data = new FormData();
     data.append('file', file);
@@ -49,11 +61,11 @@ class Navigation extends Component {
           <Nav className="mr-auto">
             <Nav.Link href="/add">Add moovie</Nav.Link>
             <Nav.Link onClick={this.getSortedMoovies}>A-Z list</Nav.Link>
-            <input
-              type="file"
-              id="targetFile"
-              ref={this.fileInput}
-              onChange={this.handleUpload}
+            <Nav.Link onClick={() => this.setShow(true)}>Upload</Nav.Link>
+            <FileUploadModal
+              show={this.state.show}
+              handleClose={this.handleClose}
+              handleUpload={this.handleUpload}
             />
           </Nav>
           <Form inline onSubmit={this.handleSubmit}>

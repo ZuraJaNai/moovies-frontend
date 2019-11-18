@@ -6,17 +6,25 @@ export const initializeMoovies = () => dispatch => {
 };
 
 export const addMoovie = data => dispatch => {
-  console.log(data);
-  axios
+  return axios
     .post("/moovies", data)
     .then(res => {
-      dispatch({
-        type: ADD_MOOVIE,
-        payload: res.data
+      return new Promise(resolve => {
+        dispatch({
+          type: ADD_MOOVIE,
+          payload: res.data
+        });
+        resolve(true);
       });
     })
     .catch(err => {
-      console.log(err);
+      if (err.response.status == "409") {
+        return new Promise(resolve => {
+          resolve(false);
+        });
+      } else {
+        console.log(err);
+      }
     });
 };
 
