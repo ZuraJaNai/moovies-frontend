@@ -17,8 +17,6 @@ export default function (state = initialState, action) {
       };
     case DEL_MOOVIE:
       const index = state.list.findIndex(moovie => moovie["_id"] === action.payload);
-      console.log(action.payload)
-      console.log(index)
       return {
         ...state,
         list: [...state.list.slice(0, index),

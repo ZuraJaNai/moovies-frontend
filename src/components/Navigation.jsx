@@ -33,6 +33,7 @@ class Navigation extends Component {
     axios.post("/import", data)
       .then(this.props.refreshMoovies())
       .catch(err => console.log(err))
+    window.location.reload();
   };
 
   handleSubmit = (e) => {
