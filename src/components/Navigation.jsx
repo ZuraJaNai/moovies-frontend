@@ -12,7 +12,8 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      show: false,
+      fileError: false
     }
     this.searchInput = React.createRef();
   }
@@ -23,17 +24,23 @@ class Navigation extends Component {
 
   handleClose = () => {
     this.setShow(false);
+    this.setState({ fileError: false });
   }
 
   handleUpload = (e) => {
-    this.handleClose();
     const file = e.target.files[0];
     const data = new FormData();
-    data.append('file', file);
-    axios.post("/import", data)
-      .then(this.props.refreshMoovies())
-      .catch(err => console.log(err))
-    window.location.reload();
+    if (file.type === "text/plain") {
+      this.handleClose();
+      data.append('file', file);
+      axios.post("/import", data)
+        .then(this.props.refreshMoovies())
+        .catch(err => console.log(err))
+      window.location.reload();
+    }
+    else {
+      this.setState({ fileError: true })
+    }
   };
 
   handleSubmit = (e) => {
@@ -67,6 +74,8 @@ class Navigation extends Component {
               show={this.state.show}
               handleClose={this.handleClose}
               handleUpload={this.handleUpload}
+              error={this.state.fileError}
+              errorText={"Wrong file format! It should be '.txt'"}
             />
           </Nav>
           <Form inline onSubmit={this.handleSubmit}>
